@@ -52,7 +52,7 @@ def generate_results_index(file):
     return collections.Counter(scores_clean)
 
 
-def generate_lorez_curve_for_search_results(data):
+def generate_lorenz_curve_for_search_results(input_data):
     """
     Generate a pseudo-Lorenz curve of pecertage of results vs. retured index position i
     Input is a counter dict of position data ourputs a plotly chart
@@ -60,15 +60,15 @@ def generate_lorez_curve_for_search_results(data):
     """
 
     # get total number of positions in dataset
-    num_of_positions = len(data)
+    num_of_positions = len(input_data)
     total_values = 0
-    for value in data:
-        total_values += data[value]
+    for value in input_data:
+        total_values += input_data[value]
     print(total_values)
 
     # sum data set up over all positions
-    x_values = [i for i in data]
-    y_values = [((data[i] / total_values) * 100) for i in data]
+    x_values = [i for i in input_data]
+    y_values = [((input_data[i] / total_values) * 100) for i in input_data]
     print(x_values)
     print(y_values)
 
@@ -95,8 +95,8 @@ def generate_lorez_curve_for_search_results(data):
                   )
                   )
 
-    data = [trace0]
-    fig = go.Figure(data=data, layout=layout)
+    input_data = [trace0]
+    fig = go.Figure(data=input_data, layout=layout)
     url = py.plot(fig, filename='Semantic Results Lorenz Curve- Claim Text Searched Against claim_only Endpoint')
     print(url)
 
@@ -144,4 +144,4 @@ if __name__ == '__main__':
     # After all data is completed, summarize all data into a collections.Counter object
     data = generate_results_index('results.tsv')
     # Generate a plotly charts of results, it will open in your browser
-    generate_lorez_curve_for_search_results(data)
+    generate_lorenz_curve_for_search_results(data)
