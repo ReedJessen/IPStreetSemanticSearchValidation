@@ -13,4 +13,4 @@
 ## [no102.txt](https://github.com/ReedJessen/IPStreetSemanticSearchValidation/blob/master/data/no102.txt)
 **Summary:** A 12 column file containing data from US patent application which **did not** recieve a rejection under 35 U.S.C. § 102 during prosecution.
 
-**Sechema:** application number | document number | priority date | file date | publication date | ipcr class | uspc class | art unit | NA | received a 102 rejection? (YES=1, NO=0) | NA | summary text
+**Schema:** application number | document number | priority date | file date | publication date | ipcr class | uspc class | art unit | NA | received a 102 rejection? (YES=1, NO=0) | NA | summary text
