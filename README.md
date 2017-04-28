@@ -1,4 +1,4 @@
-# Statistical Validation of the IP Street Semantic Search API Service
+# Statistical Validation IP Street's Semantic Search API Service
 
 ## Overview
 
