@@ -5,9 +5,10 @@ import pandas
 import plotly.plotly as py
 import plotly.graph_objs as go
 
-def read_in_file(file):
+
+def read_in_file(input_file):
     """reads tsv file and returns pandas data frame"""
-    data = pandas.read_csv(file, sep='\t',header=None)
+    data = pandas.read_csv(input_file, sep='\t', header=None)
     return data
 
 
@@ -32,8 +33,9 @@ def search_full_text(text, ipstreet_api_key):
 
     return r.json()
 
+
 def generate_results_index(file):
-    """generates counter summary dict required to produce a lorez curve of the results"""
+    """generates counter summary dict required to produce a lorenz curve of the results"""
     with open(file, 'r') as tsv:
         results = [line.strip().split('\t') for line in tsv]
     scores = []
@@ -49,6 +51,7 @@ def generate_results_index(file):
 
     return collections.Counter(scores_clean)
 
+
 def generate_lorez_curve_for_search_results(data):
     """
     Generate a pseudo-Lorenz curve of pecertage of results vs. retured index position i
@@ -63,17 +66,17 @@ def generate_lorez_curve_for_search_results(data):
         total_values += data[value]
     print(total_values)
 
-    #sum data set up over all positions
+    # sum data set up over all positions
     x_values = [i for i in data]
-    y_values = [((data[i]/total_values)*100) for i in data]
+    y_values = [((data[i] / total_values) * 100) for i in data]
     print(x_values)
     print(y_values)
 
     trace0 = go.Scatter(
-        x = x_values,
-        y = y_values)
+        x=x_values,
+        y=y_values)
 
-    layout = dict(title='Claim Text Searched Against claim_only Endpoint \n Semantic Results Lorez Curve',
+    layout = dict(title='Claim Text Searched Against claim_only Endpoint \n Semantic Results Lorenz Curve',
                   xaxis=dict(
                       range=[.7, num_of_positions],
                       tick0=1,
@@ -88,17 +91,13 @@ def generate_lorez_curve_for_search_results(data):
                       range=[0, 100],
                       autotick=True,
                       showticklabels=True,
-                      ticksuffix="%",
-
-
+                      ticksuffix="%"
                   )
                   )
-
-
 
     data = [trace0]
     fig = go.Figure(data=data, layout=layout)
-    url = py.plot(fig, filename='Semantic Results Lorez Curve- Claim Text Searched Against claim_only Endpoint')
+    url = py.plot(fig, filename='Semantic Results Lorenz Curve- Claim Text Searched Against claim_only Endpoint')
     print(url)
 
 
@@ -121,13 +120,13 @@ if __name__ == '__main__':
         while True:
             try:
                 # run full_text semantic query with summary text as search seed
-                response = search_full_text(texts[11][i],ipstreet_api_key)
+                response = search_full_text(texts[11][i], ipstreet_api_key)
                 # extract assets from json response
                 assets = [i for i in response['Assets']]
                 # extract a list of the top ten most semantically similar assets, could be set to any size
                 top_10 = [i['application_number'] for i in assets[0:11]]
                 # insert the seed patent's application number as the first value in the list
-                top_10.insert(0,str(texts[0][i]))
+                top_10.insert(0, str(texts[0][i]))
                 # append the top ten list to the list of results
                 results.append(top_10)
                 # increment counter
@@ -142,7 +141,7 @@ if __name__ == '__main__':
                 continue
             break
 
-    # After all data is completed, summarize all data into a colletions.Counter object
+    # After all data is completed, summarize all data into a collections.Counter object
     data = generate_results_index('results.tsv')
     # Generate a plotly charts of results, it will open in your browser
     generate_lorez_curve_for_search_results(data)
