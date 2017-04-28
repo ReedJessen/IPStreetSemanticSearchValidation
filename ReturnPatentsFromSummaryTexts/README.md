@@ -1,4 +1,10 @@
-## Inputs
+# Results
+ 72% of `Summary Text` inputs returned their associated `Patent Application Number` as the first most conceptually similar patent asset.
+
+ ![ReturnPatentsFromSummaryTextsResults](http://i.imgur.com/rfS1go5.png)
+ 
+ 
+# Inputs
 500 `Patent Application Number` and `Summary Text` Describing the Associated `Patent Application Number`.
 
 # Process
