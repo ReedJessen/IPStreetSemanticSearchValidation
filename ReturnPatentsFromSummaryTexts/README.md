@@ -5,7 +5,8 @@
  
  
 # Inputs
-500 `Patent Application Number` and `Summary Text` Describing the Associated `Patent Application Number`.
+The primary input was 500 patent application summary description texts (`Summary Text`) sourced from the USPTO Bulk Data Site.  Specifically, the summary texts are taken from the **Patent Application Full Text Data (No Images) (MAR 15, 2001 - PRESENT)** data set. This data set can be found at [https://bulkdata.uspto.gov/](https://bulkdata.uspto.gov/).  Secondarily, each patent application's `Patent Application Number` was used as a uniquely identifying key.
+
 
 # Process
 1. For each `Patent Application Number`, search `https://api.ipstreet.com/v2/full_text` using its `Summary Text` as the raw text search seed.
